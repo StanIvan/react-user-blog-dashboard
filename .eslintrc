@@ -1,0 +1,12 @@
+{
+  "extends": "sammy",
+  "rules": {
+    "react-intl-sammy/missing-formatted-message": "off",
+    "functional/prefer-readonly-type": "off",
+    "import/no-default-export": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "formatjs/no-literal-string-in-jsx": "off",
+    "functional/immutable-data": "off",
+    "functional/no-conditional-statements": "off"
+  }
+}
