@@ -15,7 +15,6 @@ describe("UsersList Component", () => {
       last_name: "Vannuchi",
       email: "tvannuchii8@e-recht24.de",
       gender: "Female",
-      ip_address: "127.227.9.185",
     },
   ];
 
@@ -52,6 +51,7 @@ describe("UsersList Component", () => {
     // verify table headers
     expect(screen.getByText("First Name")).toBeInTheDocument();
     expect(screen.getByText("Last Name")).toBeInTheDocument();
+    expect(screen.queryByText("IP address")).not.toBeInTheDocument();
 
     // verify user data using more specific queries
     expect(screen.getByRole("cell", { name: "Tina" })).toBeInTheDocument();

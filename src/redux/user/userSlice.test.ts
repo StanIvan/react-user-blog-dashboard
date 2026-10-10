@@ -8,7 +8,6 @@ const TestUsers: User[] = [
     last_name: "Doe",
     email: "test@test.org",
     gender: "Male",
-    ip_address: "127.0.0.1",
   },
   {
     id: 2,
@@ -16,7 +15,6 @@ const TestUsers: User[] = [
     last_name: "Doe",
     email: "test-second@test.org",
     gender: "Female",
-    ip_address: "0.0.0.0",
   },
 ];
 
