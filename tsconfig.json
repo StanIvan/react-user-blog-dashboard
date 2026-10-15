@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "baseUrl": ".",
     "noEmit": true,
     "strict": true,
     "esModuleInterop": true,
     "allowJs": false,
     "jsx": "react",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "@/*": ["src/*"]
+    }
   }
 }

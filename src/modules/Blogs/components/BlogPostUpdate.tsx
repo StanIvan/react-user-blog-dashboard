@@ -1,7 +1,10 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { ArrowLeft, Save } from "lucide-react";
 import React from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
+import { Button } from "../../../common/ui/button";
+import { Input } from "../../../common/ui/input";
+import { Textarea } from "../../../common/ui/textarea";
 import { BlogPost } from "../../../data/data";
 
 interface BlogPostUpdateProps {
@@ -33,21 +36,45 @@ const BlogPostUpdate: React.FC<BlogPostUpdateProps> = ({
   };
 
   return (
-    <>
-      <Typography variant="h5">Edit blog</Typography>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <section className="mx-auto max-w-3xl rounded-3xl border bg-card p-6 shadow-soft sm:p-10">
+      <button
+        className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+        onClick={onCancel}
+        type="button"
+      >
+        <ArrowLeft aria-hidden="true" className="h-4 w-4" />
+        Cancel editing
+      </button>
+      <div className="mb-7">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+          Update your story
+        </p>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight">
+          Edit blog
+        </h1>
+      </div>
+      <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}
           name="title"
           render={({ field, fieldState: { error } }) => (
-            <TextField
-              {...field}
-              error={Boolean(error)}
-              fullWidth
-              helperText={error ? error.message : ""}
-              label="Title"
-              margin="normal"
-            />
+            <div className="space-y-2">
+              <label className="text-sm font-medium" htmlFor="blog-title">
+                Title
+              </label>
+              <Input
+                {...field}
+                aria-describedby={error ? "blog-title-error" : undefined}
+                aria-invalid={Boolean(error)}
+                id="blog-title"
+                placeholder="Give your story a title"
+              />
+              {error ? (
+                <p className="text-sm text-destructive" id="blog-title-error">
+                  {error.message}
+                </p>
+              ) : null}
+            </div>
           )}
           rules={{ required: "Title is required" }}
         />
@@ -55,47 +82,38 @@ const BlogPostUpdate: React.FC<BlogPostUpdateProps> = ({
           control={control}
           name="body"
           render={({ field, fieldState: { error } }) => (
-            <TextField
-              {...field}
-              error={Boolean(error)}
-              fullWidth
-              helperText={error ? error.message : ""}
-              label="Body"
-              margin="normal"
-              multiline
-              rows={8}
-            />
+            <div className="space-y-2">
+              <label className="text-sm font-medium" htmlFor="blog-body">
+                Body
+              </label>
+              <Textarea
+                {...field}
+                aria-describedby={error ? "blog-body-error" : undefined}
+                aria-invalid={Boolean(error)}
+                className="min-h-56 resize-y leading-7"
+                id="blog-body"
+                placeholder="Share the details..."
+              />
+              {error ? (
+                <p className="text-sm text-destructive" id="blog-body-error">
+                  {error.message}
+                </p>
+              ) : null}
+            </div>
           )}
           rules={{ required: "Content is required" }}
         />
-        <Box
-          alignItems="center"
-          display="flex"
-          justifyContent="end"
-          marginTop={2}
-        >
-          <Button
-            onClick={onCancel}
-            size="small"
-            sx={{ marginRight: 1 }}
-            variant="outlined"
-          >
+        <div className="flex justify-end gap-2 border-t pt-5">
+          <Button onClick={onCancel} size="sm" variant="outline">
             Cancel
           </Button>
-          <Button
-            autoFocus
-            color="primary"
-            disableRipple
-            size="small"
-            sx={{ marginRight: 1 }}
-            type="submit"
-            variant="contained"
-          >
+          <Button size="sm" type="submit">
+            <Save aria-hidden="true" className="h-3.5 w-3.5" />
             Save
           </Button>
-        </Box>
+        </div>
       </form>
-    </>
+    </section>
   );
 };
 

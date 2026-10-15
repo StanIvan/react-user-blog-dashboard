@@ -1,9 +1,9 @@
-import { DeleteOutline } from "@mui/icons-material";
-import { Box, Button, IconButton } from "@mui/material";
 import dayjs from "dayjs";
-import { MRT_Cell, MRT_ColumnDef, MRT_Row } from "material-react-table";
+import { Eye, Trash2 } from "lucide-react";
 import React from "react";
 
+import { TableColumn } from "../../../common/CustomTable";
+import { Button } from "../../../common/ui/button";
 import { BlogPost } from "../../../data/data";
 
 interface BlogPostsColumnsProps {
@@ -14,39 +14,49 @@ interface BlogPostsColumnsProps {
 export const BlogPostsColumns = ({
   onDeleteBlog,
   onPreviewBlog,
-}: BlogPostsColumnsProps): MRT_ColumnDef<BlogPost>[] => [
+}: BlogPostsColumnsProps): TableColumn<BlogPost>[] => [
   {
+    id: "title",
     header: "Title",
-    accessorKey: "title",
+    cell: (post) => <span className="font-medium">{post.title}</span>,
+    sortValue: (post) => post.title,
   },
   {
+    id: "datePosted",
     header: "Date",
-    accessorKey: "datePosted",
-    Cell: ({ cell }: { cell: MRT_Cell<BlogPost> }) =>
-      dayjs(cell.getValue<string>(), "YYYY-MM-DD HH:mm:ss").format(
+    cell: (post) =>
+      dayjs(post.datePosted, "YYYY-MM-DD HH:mm:ss").format(
         "DD/MM/YYYY hh:mm a",
       ),
+    sortValue: (post) => post.datePosted,
   },
   {
-    accessorKey: "actions",
+    id: "actions",
     header: "Actions",
-    Cell: ({ row }: { readonly row: MRT_Row<BlogPost> }) => (
-      <Box alignItems="flex-end" display="flex" justifyContent="flex-center">
+    className: "text-right",
+    cell: (post) => (
+      <div className="flex items-center justify-end gap-2">
         <Button
-          onClick={() => onPreviewBlog(row.original.id)}
-          size="small"
-          variant="outlined"
+          onClick={(event) => {
+            event.stopPropagation();
+            onPreviewBlog(post.id);
+          }}
+          size="sm"
+          variant="outline"
         >
+          <Eye aria-hidden="true" className="h-3.5 w-3.5" />
           View Post
         </Button>
-        <IconButton
+        <Button
           aria-label="Delete post"
-          onClick={(event) => onDeleteBlog(event, row.original.id)}
-          size="small"
+          className="text-destructive hover:text-destructive"
+          onClick={(event) => onDeleteBlog(event, post.id)}
+          size="icon"
+          variant="ghost"
         >
-          <DeleteOutline color="error" />
-        </IconButton>
-      </Box>
+          <Trash2 aria-hidden="true" className="h-4 w-4" />
+        </Button>
+      </div>
     ),
   },
 ];

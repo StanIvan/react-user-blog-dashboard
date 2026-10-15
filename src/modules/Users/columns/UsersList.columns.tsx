@@ -1,8 +1,8 @@
-import { DeleteOutline } from "@mui/icons-material";
-import { Box, Button, IconButton } from "@mui/material";
-import { MRT_ColumnDef, MRT_Row } from "material-react-table";
+import { Trash2 } from "lucide-react";
 import React from "react";
 
+import { TableColumn } from "../../../common/CustomTable";
+import { Button } from "../../../common/ui/button";
 import { User } from "../../../data/data";
 
 interface UserListColumnsProps {
@@ -13,32 +13,69 @@ interface UserListColumnsProps {
 export const UserListColumns = ({
   onDeleteUser,
   onAddPost,
-}: UserListColumnsProps): MRT_ColumnDef<User>[] => [
-  { accessorKey: "id", header: "ID" },
-  { accessorKey: "first_name", header: "First Name" },
-  { accessorKey: "last_name", header: "Last Name" },
-  { accessorKey: "email", header: "Email" },
-  { accessorKey: "gender", header: "Gender" },
+}: UserListColumnsProps): TableColumn<User>[] => [
   {
-    accessorKey: "actions",
+    id: "id",
+    header: "ID",
+    cell: (user) => user.id,
+    sortValue: (user) => user.id,
+  },
+  {
+    id: "first_name",
+    header: "First Name",
+    cell: (user) => (
+      <span className="font-medium text-foreground">{user.first_name}</span>
+    ),
+    sortValue: (user) => user.first_name,
+  },
+  {
+    id: "last_name",
+    header: "Last Name",
+    cell: (user) => user.last_name,
+    sortValue: (user) => user.last_name,
+  },
+  {
+    id: "email",
+    header: "Email",
+    cell: (user) => <span className="text-muted-foreground">{user.email}</span>,
+    sortValue: (user) => user.email,
+  },
+  {
+    id: "gender",
+    header: "Gender",
+    cell: (user) => (
+      <span className="inline-flex rounded-full bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground">
+        {user.gender}
+      </span>
+    ),
+    sortValue: (user) => user.gender,
+  },
+  {
+    id: "actions",
     header: "Actions",
-    Cell: ({ row }: { readonly row: MRT_Row<User> }) => (
-      <Box alignItems="flex-end" display="flex" justifyContent="flex-center">
+    className: "text-right",
+    cell: (user) => (
+      <div className="flex items-center justify-end gap-2">
         <Button
-          onClick={() => onAddPost(row.original.id)}
-          size="small"
-          variant="outlined"
+          onClick={(event) => {
+            event.stopPropagation();
+            onAddPost(user.id);
+          }}
+          size="sm"
+          variant="outline"
         >
           Add Post
         </Button>
-        <IconButton
+        <Button
           aria-label="Delete user"
-          onClick={(event) => onDeleteUser(event, row.original.id)}
-          size="small"
+          className="text-destructive hover:text-destructive"
+          onClick={(event) => onDeleteUser(event, user.id)}
+          size="icon"
+          variant="ghost"
         >
-          <DeleteOutline color="error" />
-        </IconButton>
-      </Box>
+          <Trash2 aria-hidden="true" className="h-4 w-4" />
+        </Button>
+      </div>
     ),
   },
 ];

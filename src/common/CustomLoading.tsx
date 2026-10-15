@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { LoaderCircle } from "lucide-react";
 import React from "react";
 
 interface CustomLoadingProps {
@@ -8,19 +8,17 @@ interface CustomLoadingProps {
 const CustomLoading: React.FC<CustomLoadingProps> = ({
   message = "Loading...",
 }) => (
-  <Box
-    alignItems="center"
-    display="flex"
-    flexDirection="column"
-    justifyContent="center"
-    minHeight="200px"
-    mt={4}
+  <div
+    aria-live="polite"
+    className="flex min-h-64 flex-col items-center justify-center gap-4"
+    role="status"
   >
-    <CircularProgress />
-    <Typography mt={2} variant="body1">
-      {message}
-    </Typography>
-  </Box>
+    <LoaderCircle
+      aria-hidden="true"
+      className="h-8 w-8 animate-spin text-primary"
+    />
+    <p className="text-sm text-muted-foreground">{message}</p>
+  </div>
 );
 
 export default CustomLoading;

@@ -1,4 +1,4 @@
-# User & Blog Dashboard
+# Fern & Folio — User & Blog Dashboard
 
 A React dashboard for browsing users and managing their blog posts. The project demonstrates a typed React application with reusable UI components, state management, client-side routing, and an interactive data table.
 
@@ -18,10 +18,14 @@ The app uses in-memory mock data from `src/data`. Changes are available while th
 
 - React and TypeScript
 - Redux Toolkit
-- Material UI and Material React Table
+- Tailwind CSS with reusable Shadcn/UI-style components
+- Radix UI primitives and Lucide icons
 - React Router
 - Jest and React Testing Library
 - Webpack
+
+The UI uses a light, soft-green palette by default, with an optional dark theme.
+Shadcn-style components live in `src/common/ui` and can be customized locally.
 
 ## Getting started
 

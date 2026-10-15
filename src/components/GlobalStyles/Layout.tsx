@@ -1,20 +1,17 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import styled from "styled-components";
 
 import { ThemeChanger } from "./ThemeChanger";
 
-const StyledWrapper = styled.div`
-  padding: 24px;
-`;
-
 const Layout = () => (
-  <>
-    <ThemeChanger />
-    <StyledWrapper>
+  <div className="min-h-screen bg-background p-6 text-foreground">
+    <div className="mx-auto max-w-7xl">
+      <div className="mb-6 flex justify-end">
+        <ThemeChanger />
+      </div>
       <Outlet />
-    </StyledWrapper>
-  </>
+    </div>
+  </div>
 );
 
 export default Layout;

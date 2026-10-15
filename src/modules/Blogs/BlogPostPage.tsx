@@ -1,10 +1,11 @@
-import { Box, Button, Typography } from "@mui/material";
+import { ArrowLeft } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 
 import CustomDeleteModal from "../../common/CustomDeleteModal";
 import CustomLoading from "../../common/CustomLoading";
+import { Button } from "../../common/ui/button";
 import { BlogPost } from "../../data/data";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -25,9 +26,7 @@ const BlogPostPage = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // simulate fetching data, this is just for example purpose and it is done a way better on users table
   useEffect(() => {
-    // simulate async data fetching
     const timer = setTimeout(() => setIsLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
@@ -40,12 +39,16 @@ const BlogPostPage = () => {
 
   if (!blogPost) {
     return (
-      <Box padding={2}>
-        <Typography variant="h6">Blog post not found</Typography>
-        <Button onClick={() => navigate("/users")} variant="contained">
+      <section className="mx-auto max-w-xl rounded-3xl border bg-card p-8 text-center shadow-soft">
+        <h1 className="text-2xl font-semibold">Blog post not found</h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          This story may have been removed or the link may be incorrect.
+        </p>
+        <Button className="mt-6" onClick={() => navigate("/users")} size="sm">
+          <ArrowLeft aria-hidden="true" className="h-4 w-4" />
           Back
         </Button>
-      </Box>
+      </section>
     );
   }
 
@@ -74,12 +77,8 @@ const BlogPostPage = () => {
     setIsDeleteModalOpen(false);
   };
 
-  const handleCancelDelete = () => {
-    setIsDeleteModalOpen(false);
-  };
-
   return (
-    <Box padding={2}>
+    <div className="mx-auto max-w-5xl">
       {isEditing ? (
         <BlogPostUpdate
           blogPost={blogPost}
@@ -96,14 +95,14 @@ const BlogPostPage = () => {
           />
           <CustomDeleteModal
             content="Are you sure you want to delete this blog post?"
-            onClose={handleCancelDelete}
+            onClose={() => setIsDeleteModalOpen(false)}
             onConfirm={handleConfirmDelete}
             open={isDeleteModalOpen}
             title="Delete Blog Post"
           />
         </>
       )}
-    </Box>
+    </div>
   );
 };
 

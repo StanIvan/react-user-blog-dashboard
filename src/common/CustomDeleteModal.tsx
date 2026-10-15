@@ -1,11 +1,13 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from "@mui/material";
 import React, { FC } from "react";
+
+import { Button } from "./ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "./ui/dialog";
 
 interface CustomDeleteModalProps {
   readonly open: boolean;
@@ -22,23 +24,28 @@ const CustomDeleteModal: FC<CustomDeleteModalProps> = ({
   title,
   content,
 }) => (
-  <Dialog onClose={onClose} open={open}>
-    <DialogTitle>{title}</DialogTitle>
-    <DialogContent>{content}</DialogContent>
-    <DialogActions>
-      <Button color="primary" onClick={onClose} size="small" variant="outlined">
-        Cancel
-      </Button>
-      <Button
-        autoFocus
-        color="error"
-        onClick={onConfirm}
-        size="small"
-        variant="contained"
-      >
-        Delete
-      </Button>
-    </DialogActions>
+  <Dialog
+    onOpenChange={(isOpen) => {
+      if (!isOpen) {
+        onClose();
+      }
+    }}
+    open={open}
+  >
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>{title}</DialogTitle>
+        <DialogDescription>{content}</DialogDescription>
+      </DialogHeader>
+      <div className="flex justify-end gap-2">
+        <Button onClick={onClose} size="sm" variant="outline">
+          Cancel
+        </Button>
+        <Button autoFocus onClick={onConfirm} size="sm" variant="destructive">
+          Delete
+        </Button>
+      </div>
+    </DialogContent>
   </Dialog>
 );
 

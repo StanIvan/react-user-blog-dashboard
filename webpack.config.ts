@@ -37,6 +37,10 @@ const config = (): Configuration => {
             },
           },
         },
+        {
+          test: /\.css$/,
+          use: ["style-loader", "css-loader", "postcss-loader"],
+        },
       ],
     },
 
@@ -57,6 +61,9 @@ const config = (): Configuration => {
     },
 
     resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "src"),
+      },
       extensions: [".tsx", ".ts", ".js"],
     },
     output: {
@@ -70,6 +77,10 @@ const config = (): Configuration => {
           {
             from: "./src/index.html",
             to: "index.html",
+          },
+          {
+            from: "./src/favicon.svg",
+            to: "favicon.svg",
           },
         ],
       }),

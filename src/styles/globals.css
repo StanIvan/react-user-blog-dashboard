@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 140 30% 97%;
+    --foreground: 151 20% 17%;
+    --card: 0 0% 100%;
+    --card-foreground: 151 20% 17%;
+    --primary: 148 32% 34%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 142 25% 92%;
+    --secondary-foreground: 148 28% 28%;
+    --muted: 140 22% 94%;
+    --muted-foreground: 150 9% 45%;
+    --accent: 143 34% 90%;
+    --accent-foreground: 148 28% 26%;
+    --destructive: 0 63% 48%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 140 16% 87%;
+    --input: 140 16% 87%;
+    --ring: 148 32% 42%;
+    --radius: 0.9rem;
+  }
+
+  .dark {
+    --background: 152 18% 10%;
+    --foreground: 140 20% 94%;
+    --card: 152 16% 13%;
+    --card-foreground: 140 20% 94%;
+    --primary: 145 37% 55%;
+    --primary-foreground: 155 25% 10%;
+    --secondary: 152 14% 20%;
+    --secondary-foreground: 140 20% 92%;
+    --muted: 152 14% 18%;
+    --muted-foreground: 145 11% 67%;
+    --accent: 150 19% 23%;
+    --accent-foreground: 140 20% 92%;
+    --destructive: 0 54% 43%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 150 12% 25%;
+    --input: 150 12% 25%;
+    --ring: 145 37% 55%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply min-h-screen bg-background font-sans text-foreground antialiased;
+    font-feature-settings: "ss01" on, "cv11" on;
+  }
+
+  button,
+  input,
+  textarea {
+    font: inherit;
+  }
+}
